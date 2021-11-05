@@ -1,6 +1,6 @@
 <?php
 
-class Unloading {
+class AdminerUnloading {
 
     function __construct ( ) {
     }
