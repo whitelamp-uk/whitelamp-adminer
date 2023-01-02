@@ -1,0 +1,30 @@
+
+/* Fonts */
+@import url("barcode-font/stylesheet.css");
+/* inflow_code_39_barcoderegular */
+/*
+  Our thanks go to:
+    inflowinventory.com
+    pagecloud.com
+    fontsquirrel.com
+*/
+
+.barcode {
+    font-family: inflow_code_39_barcoderegular;
+    font-size: 16pt;
+    white-space: nowrap;
+}
+.barcode::before {
+    content: '*';
+}
+.barcode::after {
+    content: '*';
+}
+
+.barcode-icon {
+    margin: 0 0 -0.2em 0.3em;
+    width: 1.2em;
+    height: auto;
+    content: url('./barcode-icon.png');  
+}
+
