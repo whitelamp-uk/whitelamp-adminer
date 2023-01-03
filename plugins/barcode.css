@@ -10,15 +10,24 @@
 */
 
 .barcode {
+    padding: 0.5em;
     font-family: inflow_code_39_barcoderegular;
-    font-size: 16pt;
     white-space: nowrap;
+    font-size: 32pt;
 }
 .barcode::before {
+    vertical-align: middle;
     content: '*';
 }
 .barcode::after {
+    vertical-align: middle;
     content: '*';
+}
+.barcode * {
+    white-space: inherit;
+    vertical-align: inherit;
+    text-align: inherit;
+    font-family: inherit;
 }
 
 .barcode-icon {
