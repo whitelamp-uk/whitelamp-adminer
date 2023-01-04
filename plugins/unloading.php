@@ -7,7 +7,7 @@ class Unloading {
 
     function head ( ) {
 ?>
-<link rel="stylesheet" type="text/css" href="../externals/jush/jush.css" />
+
 <script nonce="<?php echo get_nonce(); ?>">
 function unloading ( ) {
     document.body.classList.add ('unloading');
@@ -15,7 +15,7 @@ function unloading ( ) {
 window.addEventListener ('beforeunload',unloading);
 </script>
 <?php
-        return true;
+
     }
 
 }

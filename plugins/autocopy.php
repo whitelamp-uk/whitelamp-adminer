@@ -9,8 +9,6 @@ class Autocopy {
         */
         function head() {
                 ?>
-<link rel="stylesheet" type="text/css" href="../externals/jush/jush.css">
-
 
 <script <?php echo nonce(); ?>>
 function autocopy (evt) {
@@ -64,7 +62,6 @@ document.addEventListener (
 </script>
 
 <?php
-                return true;
         }
 
 }
