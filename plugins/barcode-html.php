@@ -1,4 +1,4 @@
-
+<script <?php echo nonce(); ?> >
 document.addEventListener (
     'DOMContentLoaded',
     function ( ) {
@@ -84,5 +84,5 @@ document.addEventListener (
         init ();
     }
 );
-
+</script>
 
