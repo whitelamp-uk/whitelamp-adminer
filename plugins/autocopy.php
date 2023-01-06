@@ -9,7 +9,6 @@ class Autocopy {
     */
     function head ( ) {
         require __DIR__.'/autocopy-html.php';
-        return true;
     }
 
 }

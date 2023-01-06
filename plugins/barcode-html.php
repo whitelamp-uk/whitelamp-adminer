@@ -18,6 +18,7 @@ document.addEventListener (
                                 img.addEventListener (
                                     'click',
                                     function (evt) {
+                                        evt.stopPropagation ();
                                         var cell,cells,count,j,thead,tr,trs;
                                         thead = evt.currentTarget.closest ('thead');
                                         cells = thead.querySelectorAll ('th');
@@ -41,7 +42,7 @@ document.addEventListener (
                                         }
                                     }
                                 );
-                                th.appendChild (img);
+                                th.prepend (img);
                                 return;
                             }
                         }
@@ -85,4 +86,5 @@ document.addEventListener (
     }
 );
 </script>
+<link rel="stylesheet" href="./barcode.css" />
 

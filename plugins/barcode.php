@@ -9,7 +9,6 @@ class Barcode {
     */
     function head ( ) {
         require __DIR__.'/barcode-html.php';
-        return true;
     }
 
 }
