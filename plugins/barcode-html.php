@@ -69,9 +69,22 @@ document.addEventListener (
         function init ( ) {
             var input,inputs,script;
             // First JS plug-in to asynchronously load window.whitelampAdminer suppresses other plug-ins from trying to do the same
-            if (!('whitelampAdminer' in window)) {
+            if ('whitelampAdminer' in window) {
+                if (Object.keys(whitelampAdminer).length) {
+                    // Config already loaded
+                    icons ();
+                }
+                else {
+                    // Config already loading
+                    script = document.querySelector ('script.whitelamp-adminer-cfg');
+                    script.addEventListener ('load',icons);
+                }
+            }
+            else {
+                // Load config
                 window.whitelampAdminer = {};
                 script = document.createElement ('script');
+                script.classList.add ('whitelamp-adminer-cfg');
                 script.src = './whitelamp-adminer.cfg.js';
                 script.addEventListener ('load',icons);
                 document.head.appendChild (script);
