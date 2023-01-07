@@ -36,23 +36,20 @@ document.addEventListener (
                 console.log ('whitelampAdminer.inputConstraint is not defined');
                 return;
             }
-            if (!('regexp' in whitelampAdminer.inputConstraint)) {
-                console.log ('whitelampAdminer.inputConstraint.regexp is not defined');
-                return;
-            }
-            r = whitelampAdminer.inputConstraint.regexp;
+            c = whitelampAdminer.inputConstraint;
             s = new URLSearchParams (window.location.search);
             params = Object.fromEntries (s.entries());
             db = params.db;
             t = params.edit;
-            if ('pattern' in r) {
-                for (i=0;r.pattern[i];i++) {
-                    if (r.pattern[i][0]==db) {
-                        if (r.pattern[i][1]==t) {
+            if ('pattern' in c) {
+                for (i=0;c.pattern[i];i++) {
+                    if (c.pattern[i][0]==db) {
+                        if (c.pattern[i][1]==t) {
                             ips = document.querySelectorAll ('table.layout td:nth-child(3) input, table.layout td:nth-child(3) select');
                             for (ip of ips) {
-                                if (ip.name=='fields['+r.pattern[i][2]+']') {
-                                    ip.setAttribute ('pattern',r.pattern[i][3]);
+                                if (ip.name=='fields['+c.pattern[i][2]+']') {
+console.log (c.regexp);
+                                    ip.setAttribute ('pattern',c.regexp[c.pattern[i][3]]);
                                     break;
                                 }
                             }
@@ -60,15 +57,15 @@ document.addEventListener (
                     }
                 }
             }
-            if ('keydown' in r) {
-                for (i=0;r.keydown[i];i++) {
-                    if (r.keydown[i][0]==db) {
-                        if (r.keydown[i][1]==t) {
+            if ('keydown' in c) {
+                for (i=0;c.keydown[i];i++) {
+                    if (c.keydown[i][0]==db) {
+                        if (c.keydown[i][1]==t) {
                             ips = document.querySelectorAll ('table.layout td:nth-child(3) input, table.layout td:nth-child(3) select');
                             for (ip of ips) {
-                                if (ip.name=='fields['+r.keydown[i][2]+']') {
+                                if (ip.name=='fields['+c.keydown[i][2]+']') {
                                     ip.addEventListener ('input',inputInput);
-                                    ip.dataset.keyregexp = r.keydown[i][3];
+                                    ip.dataset.keyregexp = c.regexp[c.keydown[i][3]];
                                     ip.addEventListener ('keydown',inputKeydown);
                                     break;
                                 }
@@ -77,13 +74,13 @@ document.addEventListener (
                     }
                 }
             }
-            if ('readonly' in r) {
-                for (i=0;r.readonly[i];i++) {
-                    if (r.readonly[i][0]==db) {
-                        if (r.readonly[i][1]==t) {
+            if ('readonly' in c) {
+                for (i=0;c.readonly[i];i++) {
+                    if (c.readonly[i][0]==db) {
+                        if (c.readonly[i][1]==t) {
                             ips = document.querySelectorAll ('table.layout td:nth-child(3) input, table.layout td:nth-child(3) select');
                             for (ip of ips) {
-                                if (ip.name=='fields['+r.readonly[i][2]+']') {
+                                if (ip.name=='fields['+c.readonly[i][2]+']') {
                                     ip.setAttribute ('readonly','');
                                     select = ip.closest('tr').querySelector('td:first-of-type select');
                                     for (j=0;select.options[j];j++) {

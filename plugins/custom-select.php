@@ -3,7 +3,9 @@
 
 class CustomSelect {
 
-        private $config;
+    // Adds default Adminer select (WHERE) restrictions when the view loads
+
+    private $config;
 
 	function tablesPrint($tables) {
                 if (is_readable('./custom-select.cfg.php')) {
