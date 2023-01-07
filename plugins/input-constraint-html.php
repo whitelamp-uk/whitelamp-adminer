@@ -31,7 +31,7 @@ document.addEventListener (
             }
         }
         function inputInit ( ) {
-            var db,i,ip,ips,j,o,os,r,s,select,t;
+            var db,i,ip,ips,j,o,os,p,r,s,select,t;
             if (!('inputConstraint' in whitelampAdminer)) {
                 console.log ('whitelampAdminer.inputConstraint is not defined');
                 return;
@@ -48,25 +48,18 @@ document.addEventListener (
                             ips = document.querySelectorAll ('table.layout td:nth-child(3) input, table.layout td:nth-child(3) select');
                             for (ip of ips) {
                                 if (ip.name=='fields['+c.pattern[i][2]+']') {
-console.log (c.regexp);
-                                    ip.setAttribute ('pattern',c.regexp[c.pattern[i][3]]);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if ('keydown' in c) {
-                for (i=0;c.keydown[i];i++) {
-                    if (c.keydown[i][0]==db) {
-                        if (c.keydown[i][1]==t) {
-                            ips = document.querySelectorAll ('table.layout td:nth-child(3) input, table.layout td:nth-child(3) select');
-                            for (ip of ips) {
-                                if (ip.name=='fields['+c.keydown[i][2]+']') {
-                                    ip.addEventListener ('input',inputInput);
-                                    ip.dataset.keyregexp = c.regexp[c.keydown[i][3]];
+                                    p = new RegExp ('^'+c.regexp[c.pattern[i][3]][0]+'$');
+                                    if (p.test(ip.value)) {
+                                        ip.style.borderColor = '';
+                                    }
+                                    else {
+                                        ip.style.borderColor = 'red';
+                                    }
+                                    ip.setAttribute ('pattern',c.regexp[c.pattern[i][3]][0]);
+                                    ip.dataset.keyregexp = c.regexp[c.pattern[i][3]][1];
+                                    ip.setAttribute ('title',c.regexp[c.pattern[i][3]][2]);
                                     ip.addEventListener ('keydown',inputKeydown);
+                                    ip.addEventListener ('input',inputInput);
                                     break;
                                 }
                             }
