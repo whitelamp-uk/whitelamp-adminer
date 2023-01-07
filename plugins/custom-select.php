@@ -9,7 +9,7 @@ class CustomSelect {
 
     function head ( ) {
         echo "<style>\n";
-        echo ".whitelamp-adminer-custom-select{margin-right:8px;width:24px;height:24px;content:url('./custom-select-icon.png');}\n"
+        echo "img.whitelamp-adminer-custom-select{width:12px;height:12px;content:url('./custom-select-icon.png');}\n";
         echo "</style>\n";
     }
 
@@ -40,9 +40,9 @@ class CustomSelect {
                     'select'
                 );
                 echo '>';
-                echo '<img class="whitelamp-adminer-custom-select" />';
-                echo lang ('select')
-                echo '</a>';
+                echo '<img class="whitelamp-adminer-custom-select" /> ';
+                echo lang ('select');
+                echo '</a> ';
                 echo (
                     support ("table") || support("indexes")
                     ? '<a href="'.h(ME).'table='.urlencode($table).'"'
