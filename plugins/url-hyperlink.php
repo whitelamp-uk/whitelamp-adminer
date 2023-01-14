@@ -43,14 +43,14 @@ class UrlHyperlink {
         return ($link ? "<a href='" . h($link) . "'" . (is_url($link) ? target_blank() : "") . ">$return</a>" : $return);
     }
 
-
+/*
     function editVal (string $val,array $field) {
         if (strpos(strtolower($val),'http://')===0 || strpos(strtolower($val),'https://')===0) {
 //            error_log ($val);
         }
         return $val;
     }
-
+*/
 
 }
 

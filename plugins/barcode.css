@@ -35,5 +35,6 @@
     width: 1.2em;
     height: auto;
     content: url('./barcode-icon.png');  
+    cursor: pointer;
 }
 

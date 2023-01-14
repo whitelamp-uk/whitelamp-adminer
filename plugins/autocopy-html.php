@@ -76,7 +76,8 @@ img.whitelamp-adminer-autocopy {
     top: 58px;
     border-style: solid;
     border-width: 1px;
-    content: url('./autocopy-icon.png');  
+    content: url('./autocopy-icon.png');
+    cursor: pointer;
 }
 img.whitelamp-adminer-autocopy.active {
     content: url('./autocopy-icon-active.png');  
