@@ -11,6 +11,7 @@ function adminer_object ( ) {
     @include_once 'whitelamp-adminer/plugins/restricted-user.php';
     @include_once 'whitelamp-adminer/plugins/unloading.php';
     @include_once 'whitelamp-adminer/plugins/url-hyperlink.php';
+    @include_once 'whitelamp-adminer/plugins/dev-style.php';
 
     return new AdminerPlugin (
         [
@@ -21,6 +22,7 @@ function adminer_object ( ) {
             new RestrictedUser,
             new Unloading,
             new UrlHyperlink,
+            new DevStyle
         ]
     );
 
