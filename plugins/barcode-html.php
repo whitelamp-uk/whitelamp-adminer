@@ -62,9 +62,12 @@ document.addEventListener (
             evt.currentTarget.value = v;
         }
         function inputKeydown (evt) {
+/*
+// I think this no longer serves a purpose and it was stopping enter key in Adminer search inputs from posting the form
             if (evt.key=='Enter') {
                 evt.preventDefault ();
             }
+*/
         }
         function init ( ) {
             var input,inputs,script;
