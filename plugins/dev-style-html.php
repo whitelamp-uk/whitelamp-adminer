@@ -2,8 +2,11 @@
 document.addEventListener (
     'DOMContentLoaded',
     function ( ) {
-        document.body.style.backgroundColor = 'rgb(255,230,230)';
+        document.body.classList.add ('dev-style');
     }
 );
 </script>
+<style>
+<?php require '/srv/whitelamp-adminer/dev-style.css'; ?>
+</style>
 

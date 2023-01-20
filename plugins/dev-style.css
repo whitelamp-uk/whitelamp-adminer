@@ -1,0 +1,7 @@
+
+/* This file must exist at /srv/whitelamp-adminer/dev-style.css to switch DevStyle on */
+
+body.dev-style {
+    background-color: rgb(255,235,235);
+}
+
