@@ -49,10 +49,12 @@ document.addEventListener (
                 if (evt.currentTarget.classList.contains('active')) {
                     table.classList.remove ('whitelamp-adminer-autocopy');
                     evt.currentTarget.classList.remove ('active');
+                    evt.currentTarget.setAttribute ('title','Click to copy cells to clipboard');
                 }
                 else {
                     table.classList.add ('whitelamp-adminer-autocopy');
                     evt.currentTarget.classList.add ('active');
+                    evt.currentTarget.setAttribute ('title','Click to switch off AutoCopy');
                 }
             }
         }
