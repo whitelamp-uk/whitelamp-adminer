@@ -43,7 +43,6 @@ document.addEventListener (
                                     }
                                 );
                                 th.prepend (img);
-                                return;
                             }
                         }
                     }

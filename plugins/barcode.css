@@ -9,6 +9,9 @@
     fontsquirrel.com
 */
 
+.barcode i {
+    font-style: normal;
+}
 .barcode {
     padding: 0.5em;
     font-family: inflow_code_39_barcoderegular;
@@ -16,11 +19,11 @@
     font-size: 32pt;
 }
 .barcode::before {
-    vertical-align: middle;
+    vertical-align: bottom;
     content: '*';
 }
 .barcode::after {
-    vertical-align: middle;
+    vertical-align: bottom;
     content: '*';
 }
 .barcode * {
