@@ -9,6 +9,9 @@
     fontsquirrel.com
 */
 
+.barcode a {
+    color: black;
+}
 .barcode i {
     font-style: normal;
 }

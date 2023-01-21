@@ -13,6 +13,7 @@ document.addEventListener (
                     return;
                 }
                 t = evt.target;
+                txt = t.innerText;
                 while (t!=evt.currentTarget) {
                     if (!txt) {
                         txt = t.innerText;
