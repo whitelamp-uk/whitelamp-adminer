@@ -65,6 +65,7 @@ document.addEventListener (
         if (tds.length) {
             img = document.createElement ('img');
             img.classList.add ('whitelamp-adminer-autocopy');
+            img.setAttribute ('title','Click to copy cells to clipboard');
             img.addEventListener ('click',toggle);
             document.body.appendChild (img);
         }
