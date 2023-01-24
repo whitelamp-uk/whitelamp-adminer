@@ -40,7 +40,7 @@ class CustomSelect {
                     'select'
                 );
                 echo '>';
-                echo '<img class="whitelamp-adminer-custom-select" /> ';
+                echo '<img class="whitelamp-adminer-custom-select" title="Customised search/sort" /> ';
                 echo lang ('select');
                 echo '</a> ';
                 echo (

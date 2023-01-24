@@ -15,6 +15,7 @@ document.addEventListener (
                             if (th.id=='th['+cols[i][2]+']') {
                                 img = document.createElement ('img');
                                 img.classList.add ('barcode-icon');
+                                img.setAttribute ('title','Toggle barcode font');
                                 img.addEventListener (
                                     'click',
                                     function (evt) {
