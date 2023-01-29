@@ -218,7 +218,7 @@ document.addEventListener (
             img.classList.add ('whitelamp-adminer-autocopy');
             img.setAttribute ('title','Click to copy cells to clipboard');
             img.addEventListener ('click',toggle);
-            document.body.appendChild (img);
+            document.body.querySelector('#menu h1:first-of-type').appendChild (img);
             document.body.addEventListener ('mouseup',upBody);
         }
         y = 0;
@@ -242,9 +242,7 @@ document.addEventListener (
 </script>
 <style>
 img.whitelamp-adminer-autocopy {
-    position: absolute;
-    left: 1340px;
-    top: 58px;
+    margin-left: 75px;
     border-style: solid;
     border-width: 1px;
     content: url('./autocopy-icon.png');
@@ -252,11 +250,6 @@ img.whitelamp-adminer-autocopy {
 }
 img.whitelamp-adminer-autocopy.active {
     content: url('./autocopy-icon-active.png');  
-}
-@media (max-width: 1405px) {
-    img.whitelamp-adminer-autocopy {
-        left: calc(100vw - 65px);
-    }
 }
 #table.whitelamp-adminer-autocopy td a:nth-child(1) {
     margin-left: 1em;
