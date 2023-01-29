@@ -1,3 +1,6 @@
+<?php if (is_readable('./papaparse.js')): ?>
+<script <?php echo nonce(); ?> src="./papaparse.js"></script>
+<?php endif; ?>
 <script <?php echo nonce(); ?> >
 document.addEventListener (
     'DOMContentLoaded',
@@ -101,7 +104,7 @@ document.addEventListener (
             if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
                 return;
             }
-            var c0,c1,d,data,i,j,n,r0,r1,start,tbody,td,tdcur,tds,tr,trs,txt;
+            var c0,c1,d,data,i,j,n,o,r0,r1,start,tbody,td,tdcur,tds,tr,trs,txt;
             start = document.querySelector ('td[data-autocopy]');
             delete start.dataset.autocopy;
             i = 1 * start.dataset.autocopycolumn;
@@ -173,7 +176,25 @@ document.addEventListener (
                 },
                 200
             );
-            navigator.clipboard.writeText (JSON.stringify(data,null,4));
+            if (Papa && Papa.unparse) {
+                o = Papa.unparse (
+                    data,
+                    {
+                        quotes: true, //or array of booleans
+                        quoteChar: '"',
+                        escapeChar: '"',
+                        delimiter: ',',
+                        header: false,
+                        newline: '\r\n',
+                        skipEmptyLines: false, //other option is 'greedy', meaning skip delimiters, quotes, and whitespace.
+                        columns: null //or array of strings
+                    }
+                );
+            }
+            else {
+                o = JSON.stringify (data,null,4);
+            }
+            navigator.clipboard.writeText (o);
         }
         function upBody (evt) {
             var table,td,tds;
