@@ -2,46 +2,84 @@
 document.addEventListener (
     'DOMContentLoaded',
     function ( ) {
-        function autocopy (evt) {
-            var bc,img,r,t,td,tds,txt;
-            img = document.querySelector ('img.whitelamp-adminer-autocopy');
-            if (img && img.classList.contains('active')) {
-                evt.stopPropagation ();
-                if (evt.ctrlKey || evt.shiftKey) {
-                    // Adminer uses Ctrl-click for cell editing
-                    // Shift-click could be used for something else
-                    return;
-                }
-                t = evt.target;
-                txt = t.innerText;
-                while (t!=evt.currentTarget) {
-                    if (!txt) {
-                        txt = t.innerText;
-                    }
-                    if (t.tagName=='A') {
-                        // Do not act inside links
-                            return;
-                    }
-                    t = t.parentElement;
-                }
-                // Flash background
-                bg = t.style.backgroundColor;
-                t.style.backgroundColor = 'rgb(255,127,127)';
-                setTimeout (
-                    function ( ) {
-                        t.style.transition = 'background-color 0.8s';
-                        t.style.backgroundColor = bg;
-                        setTimeout (
-                            function ( ) {
-                                t.style.transition = '';
-                            },
-                            800
-                        );
-                    },
-                    100
-                );
-                navigator.clipboard.writeText (txt);
+        function click (evt) {
+            if (evt.buttons!=1) {
+                return;
             }
+            if (evt.ctrlKey || evt.shiftKey) {
+                // Adminer uses Ctrl-click for cell editing
+                // Shift-click could be used for something else
+                return;
+            }
+            if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
+                return;
+            }
+            // Prevent Adminer row select
+            evt.stopPropagation ();
+        }
+        function down (evt) {
+            if (evt.buttons!=1) {
+                return;
+            }
+            if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
+                return;
+            }
+            evt.currentTarget.dataset.autocopy = '1';
+            evt.currentTarget.style.transition = '';
+            evt.currentTarget.style.backgroundColor = 'rgb(255,223,223)';
+        }
+        function over (evt) {
+            if (evt.buttons!=1) {
+                return;
+            }
+            if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
+                return;
+            }
+            var c0,c1,cols,i,j,r0,r1,rows,start,tbody,td,tds,tr,trs;
+            start = document.querySelector ('td[data-autocopy]');
+            i = 1 * start.dataset.autocopycolumn;
+            j = 1 * evt.currentTarget.dataset.autocopycolumn;
+            if (j>i) {
+                c0 = i;
+                c1 = j;
+            }
+            else {
+                c0 = j;
+                c1 = i;
+            }
+            j = 1 * start.closest('tr').dataset.autocopyrow;
+            i = 1 * evt.currentTarget.closest('tr').dataset.autocopyrow;
+            if (j>i) {
+                r0 = i;
+                r1 = j;
+            }
+            else {
+                r0 = j;
+                r1 = i;
+            }
+            trs = start.closest('tbody').querySelectorAll ('tr[data-autocopyrow]');
+            j = 0;
+            for (tr of trs) {
+                j++;
+                i = 0;
+                tds = tr.querySelectorAll ('td[data-autocopycolumn]');
+                for (td of tds) {
+                    i++;
+                    td.style.transition = '';
+                    if (j>=r0 && j<=r1 && i>=c0 && i<=c1) {
+                        td.style.backgroundColor = 'rgb(255,223,223)';
+                    }
+                    else {
+                        td.style.backgroundColor = '';
+                    }
+                }
+            }
+        }
+        function select (evt) {
+            if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
+                return;
+            }
+            evt.preventDefault ();
         }
         function toggle (evt) {
             var table;
@@ -59,16 +97,114 @@ document.addEventListener (
                 }
             }
         }
-        tds = document.querySelectorAll ('#table td');
-        for (td of tds) {
-            td.addEventListener ('click',autocopy);
+        function up (evt) {
+            if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
+                return;
+            }
+            var c0,c1,d,data,i,j,r0,r1,start,tbody,td,tdcur,tds,tr,trs,txt;
+            start = document.querySelector ('td[data-autocopy]');
+            delete start.dataset.autocopy;
+            i = 1 * start.dataset.autocopycolumn;
+            j = 1 * evt.currentTarget.dataset.autocopycolumn;
+            if (j>i) {
+                c0 = i;
+                c1 = j;
+            }
+            else {
+                c0 = j;
+                c1 = i;
+            }
+            j = 1 * start.closest('tr').dataset.autocopyrow;
+            i = 1 * evt.currentTarget.closest('tr').dataset.autocopyrow;
+            if (j>i) {
+                r0 = i;
+                r1 = j;
+            }
+            else {
+                r0 = j;
+                r1 = i;
+            }
+            data = [];
+            trs = start.closest('tbody').querySelectorAll ('tr[data-autocopyrow]');
+            j = 0;
+            for (tr of trs) {
+                j++;
+                d = [];
+                i = 0;
+                tds = tr.querySelectorAll ('td[data-autocopycolumn]');
+                for (td of tds) {
+                    i++;
+                    if (j>=r0 && j<=r1 && i>=c0 && i<=c1) {
+                        d.push (td.innerText);
+                        td.style.backgroundColor = 'rgb(255,127,127)';
+                    }
+                }
+                if (j>=r0 && j<=r1) {
+                    data.push (d);
+                }
+            }
+            setTimeout (
+                function ( ) {
+                    var cell,cells;
+                    cells = document.body.querySelectorAll ('#table td[data-autocopycolumn]');
+                    for (cell of cells) {
+                        cell.style.transition = 'background-color 1.0s';
+                        cell.style.backgroundColor = '';
+                    }
+                    setTimeout (
+                        function ( ) {
+                            var c, cs;
+                            cs = document.body.querySelectorAll ('#table td[data-autocopycolumn]');
+                            for (c of cs) {
+                                    c.style.transition = '';
+                            }
+                        },
+                        1400
+                    );
+                },
+                200
+            );
         }
-        if (tds.length) {
+        function upBody (evt) {
+            var table,td,tds;
+            table = document.querySelector ('#table');
+            if (!table.contains(evt.target)) {
+                td = document.querySelector ('td[data-autocopy]');
+                if (td) {
+                    delete td.dataset.autocopy;
+                }
+                tds = table.querySelectorAll ('tbody td[id]');
+                for (td of tds) {
+                    td.style.transition = '';
+                    td.style.backgroundColor = '';
+                }
+            }
+        }
+        var td,tds,tr,trs,x,y;
+        trs = document.querySelectorAll ('#table tbody tr');
+        if (trs.length) {
             img = document.createElement ('img');
             img.classList.add ('whitelamp-adminer-autocopy');
             img.setAttribute ('title','Click to copy cells to clipboard');
             img.addEventListener ('click',toggle);
             document.body.appendChild (img);
+            document.body.addEventListener ('mouseup',upBody);
+        }
+        y = 0;
+        for (tr of trs) {
+            y++;
+            tr.dataset.autocopyrow = y;
+            tds = tr.querySelectorAll ('td[id]');
+            x = 0;
+            for (td of tds) {
+                x++;
+                td.dataset.autocopycolumn = x;
+                td.addEventListener ('click',click);
+                td.addEventListener ('mousedown',down);
+                td.addEventListener ('mouseover',over);
+                td.addEventListener ('mouseup',up);
+                td.addEventListener ('selectstart',select);
+            }
         }
     }
 );
