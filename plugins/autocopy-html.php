@@ -6,9 +6,6 @@ document.addEventListener (
     'DOMContentLoaded',
     function ( ) {
         function click (evt) {
-            if (evt.buttons!=1) {
-                return;
-            }
             if (evt.ctrlKey || evt.shiftKey) {
                 // Adminer uses Ctrl-click for cell editing
                 // Shift-click could be used for something else
