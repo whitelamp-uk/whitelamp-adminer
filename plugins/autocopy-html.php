@@ -220,6 +220,7 @@ document.addEventListener (
             img.addEventListener ('click',toggle);
             document.body.querySelector('#menu h1:first-of-type').appendChild (img);
             document.body.addEventListener ('mouseup',upBody);
+            document.body.addEventListener ('mouseout',upBody);
         }
         y = 0;
         for (tr of trs) {
