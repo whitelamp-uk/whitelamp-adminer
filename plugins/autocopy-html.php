@@ -101,7 +101,7 @@ document.addEventListener (
             if (!evt.currentTarget.closest('table').classList.contains('whitelamp-adminer-autocopy')) {
                 return;
             }
-            var c0,c1,d,data,i,j,r0,r1,start,tbody,td,tdcur,tds,tr,trs,txt;
+            var c0,c1,d,data,i,j,n,r0,r1,start,tbody,td,tdcur,tds,tr,trs,txt;
             start = document.querySelector ('td[data-autocopy]');
             delete start.dataset.autocopy;
             i = 1 * start.dataset.autocopycolumn;
@@ -135,7 +135,16 @@ document.addEventListener (
                 for (td of tds) {
                     i++;
                     if (j>=r0 && j<=r1 && i>=c0 && i<=c1) {
-                        d.push (td.innerText);
+                        n = td.querySelector ('i');
+                        if (n) {
+                            n = (n.innerText=='NULL');
+                        }
+                        if (n) {
+                            d.push (null);
+                        }
+                        else {
+                            d.push (td.innerText);
+                        }
                         td.style.backgroundColor = 'rgb(255,127,127)';
                     }
                 }
@@ -164,6 +173,7 @@ document.addEventListener (
                 },
                 200
             );
+            navigator.clipboard.writeText (JSON.stringify(data,null,4));
         }
         function upBody (evt) {
             var table,td,tds;
@@ -212,7 +222,7 @@ document.addEventListener (
 <style>
 img.whitelamp-adminer-autocopy {
     position: absolute;
-    left: 1140px;
+    left: 1340px;
     top: 58px;
     border-style: solid;
     border-width: 1px;
@@ -221,6 +231,11 @@ img.whitelamp-adminer-autocopy {
 }
 img.whitelamp-adminer-autocopy.active {
     content: url('./autocopy-icon-active.png');  
+}
+@media (max-width: 1405px) {
+    img.whitelamp-adminer-autocopy {
+        left: calc(100vw - 65px);
+    }
 }
 #table.whitelamp-adminer-autocopy td a:nth-child(1) {
     margin-left: 1em;
