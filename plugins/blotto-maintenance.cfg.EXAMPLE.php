@@ -1,7 +1,7 @@
 <?php
 return [
     'blotto' => [
-        'maintenance' => false
+        'maintenance_file' => '/opt/mylotto/blotto2/blotto.maintenance'
     ]
 ];
 
