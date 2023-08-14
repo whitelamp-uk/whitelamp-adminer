@@ -6,22 +6,33 @@ class CustomSelect {
     // Adds default Adminer select (WHERE) restrictions when the view loads
 
     private $config;
+    private $db;
+
+    function configSet ( ) {
+        $this->db = Adminer::database ();
+        if (!$this->config) {
+            if (is_readable('./custom-select.cfg.php')) {
+                $config = require './custom-select.cfg.php';
+                if (is_array($config) && array_key_exists($this->db,$config)) {
+                    $this->config = $config[$this->db];
+                }
+            }
+        }
+    }
 
     function head ( ) {
+        $this->configSet ();
         echo "<style>\n";
         echo "img.whitelamp-adminer-custom-select{width:12px;height:12px;content:url('./custom-select-icon.png');}\n";
+        if (array_key_exists('css',$this->config)) {
+            echo $this->config['css'];
+        }
         echo "</style>\n";
     }
 
     function tablesPrint ($tables) {
-        if (is_readable('./custom-select.cfg.php')) {
-            $this->config = require './custom-select.cfg.php';
-        }
-        if (!is_array($this->config)) {
-            $this->config = [];
-        }
-        $db = Adminer::database ();
-        if (!array_key_exists($db,$this->config)) {
+        $this->configSet ();
+        if (!$this->config) {
             return null;
         }
         $Adminer = adminer ();
@@ -31,9 +42,9 @@ class CustomSelect {
             $name = $Adminer->tableName ($status);
             if ($name!='') {
                 echo '<li><a href="'.h(ME).'select='.urlencode($table);
-                echo $this->config[$db]['all_tables'];
-                if (isset($this->config[$db]['per_table'][$table])) {
-                    echo $this->config[$db]['per_table'][$table];
+                echo $this->config['all_tables'];
+                if (isset($this->config['per_table'][$table])) {
+                    echo $this->config['per_table'][$table];
                 }
                 echo '"'.bold(
                     $_GET["select"]==$table || $_GET["edit"]==$table,

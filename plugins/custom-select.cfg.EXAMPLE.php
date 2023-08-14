@@ -13,7 +13,15 @@ return [
             'ww_status'         => '',
             'ww_variant'        => '&where[1][col]=generic&where[1][op]=%3D'
 */
-        ]
+        ],
+        'css' => '
+#table th[id~="notes_shared"],
+#table th[id~="notes_internal"],
+#table td[id~="notes_shared"],
+#table td[id~="notes_internal"] {
+    width: calc(50vw - 25em);
+}
+'
     ]
 ];
 
