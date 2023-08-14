@@ -15,11 +15,10 @@ return [
 */
         ],
         'css' => '
-#table th[id*="notes_shared"],
-#table th[id*="notes_internal"],
+#table td[id*="item"],
 #table td[id*="notes_shared"],
 #table td[id*="notes_internal"] {
-    width: calc(50vw - 25em);
+    width: 20em;
 }
 '
     ]
